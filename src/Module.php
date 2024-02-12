@@ -32,18 +32,18 @@ final class Module
         /** @var array<string, mixed> $appConfig */
         $appConfig = $container->get('config');
 
-        if (($appConfig['sentry']['disable_module'] ?? false)) {
+        if (($appConfig['sentry']['disable_module'] ?? false) === true) {
             return;
         }
 
         // Get the Hub to initialize it
         $container->get(HubInterface::class);
 
-        /** @psalm-var array{options?: array{inject_script?: boolean}, script?: array{src?: string}} $config */
+        /** @var array{options?: array, inject_script?: boolean, script?: array{src?: string}} $config */
         $config = $appConfig['sentry']['javascript'] ?? [];
         $options = $config['options'] ?? [];
 
-        if (! ($config['inject_script'] ?? false)) {
+        if (($config['inject_script'] ?? false) === false) {
             return;
         }
 
@@ -53,7 +53,7 @@ final class Module
         $headScriptHelper = $viewHelperManager->get('HeadScript');
         $script = $config['script'] ?? null;
         $scriptSrc = $script['src'] ?? null;
-        if ($script && $scriptSrc) {
+        if ($script !== null && $scriptSrc !== null) {
             $headScriptHelper->appendFile($scriptSrc, 'text/javascript', $script);
         }
 

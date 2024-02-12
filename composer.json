@@ -47,7 +47,7 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
-        "sentry/sentry": "^3.0.0",
+        "sentry/sentry": "^4.0.0",
         "laminas/laminas-servicemanager": "^3.4.0"
     },
     "require-dev": {
@@ -57,12 +57,12 @@
         "laminas/laminas-modulemanager": "^2.8.4",
         "laminas/laminas-mvc": "^3.1.1",
         "laminas/laminas-view": "^2.11.4",
-        "facile-it/facile-coding-standard": "^0.5.1",
+        "facile-it/facile-coding-standard": "^1",
         "php-http/curl-client": "^2.1.0",
         "friendsofphp/php-cs-fixer": "^3.0",
         "phpspec/prophecy-phpunit": "^2.0",
-        "vimeo/psalm": "^4.22",
-        "lctrs/psalm-psr-container-plugin": "^1.6"
+        "vimeo/psalm": "^5",
+        "lctrs/psalm-psr-container-plugin": "^1.10"
     },
     "conflict": {
         "container-interop/container-interop": "< 1.2",
@@ -87,5 +87,11 @@
         "ci-phpunit": "phpunit --coverage-clover=coverage.clover",
         "cs-check": "php-cs-fixer fix --dry-run --diff --allow-risky yes",
         "cs-fix": "php-cs-fixer fix --diff --allow-risky yes"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true,
+            "facile-it/facile-coding-standard": true
+        }
     }
 }

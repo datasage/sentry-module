@@ -9,7 +9,7 @@ use Sentry\ClientBuilder;
 use Sentry\ClientInterface;
 
 /**
- * @psalm-type Options = array{before_breadcrumb?: string|callable(): mixed, before_send?: string|callable(): mixed, traces_sampler?: string|callable(): float, representation_serializer?: string, serializer?: string}
+ * @psalm-type Options = array{before_breadcrumb?: string|callable(): mixed, before_send?: string|callable(): mixed, traces_sampler?: string|callable(): float, representation_serializer?: string}
  */
 final class ClientConfigFactory
 {
@@ -20,6 +20,7 @@ final class ClientConfigFactory
 
         /**
          * @var array<string, mixed>
+         *
          * @psalm-var Options $options
          */
         $options = array_filter(
@@ -27,7 +28,7 @@ final class ClientConfigFactory
             /**
              * @param mixed $value
              */
-            static fn ($value): bool => null !== $value
+            static fn($value): bool => null !== $value
         );
 
         $beforeBreadcrumb = $options['before_breadcrumb'] ?? null;
@@ -59,15 +60,6 @@ final class ClientConfigFactory
              * @psalm-suppress MixedArgument
              */
             $builder->setRepresentationSerializer($container->get($representationSerializer));
-        }
-
-        $serializer = $options['serializer'] ?? null;
-        if (\is_string($serializer)) {
-            /**
-             * @psalm-suppress MixedAssignment
-             * @psalm-suppress MixedArgument
-             */
-            $builder->setSerializer($container->get($serializer));
         }
 
         return $builder->getClient();
